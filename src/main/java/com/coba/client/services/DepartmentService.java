@@ -3,6 +3,7 @@ package com.coba.client.services;
 import com.coba.client.models.Department;
 import com.coba.client.models.Employee;
 import com.coba.client.models.ResponseMessage;
+import com.coba.client.models.ResponseSingle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -32,8 +33,22 @@ public class DepartmentService {
         return response.getBody();
     }
 
+    public ResponseSingle<Department> getById(Long id) {
+        ResponseEntity<ResponseSingle<Department>> res = restTemplate
+                .exchange(apiUrl + "/" + id,HttpMethod.GET,null, new ParameterizedTypeReference
+                        <ResponseSingle<Department>>(){});
+        return res.getBody();
+    }
+
     public Department create(Department department) {
         ResponseEntity<Department> res = restTemplate.postForEntity(apiUrl, department, Department.class);
         return res.getBody();
     }
+
+    public String del(Long id) {
+        restTemplate.delete(apiUrl +"/"+ id, Department.class);
+        return "deleted";
+    }
+
+
 }
