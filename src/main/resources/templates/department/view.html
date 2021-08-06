@@ -6,44 +6,132 @@
         <div th:replace="item/header :: sidebars"></div>
         <div th:replace="item/header :: navbars"></div>
         <div class="dashboard-wrapper">
+            <div id="postResultDiv"></div>
             <div class="container-fluid dashboard-content ">
-                <a th:href="@{/department/add}" class="btn btn-warning mb-3 mt-3">
+<!--                <a th:href="@{/department/add}" class="btn btn-warning mb-3 mt-3">-->
+<!--                    <i class="fas fa-plus"></i>-->
+<!--                    Department-->
+<!--                </a>-->
+
+<!--                Button Modal-->
+                <button type="button" class="btn btn-warning mb-3 mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" id="btnForm">
                     <i class="fas fa-plus"></i>
-                    Department
-                </a>
+                    Tambah
+                </button>
+
+                <!-- Target modal/input form -->
+                <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p style="color: red" id="pesan"></p>
+                                <form class="needs-validation" id="postForm2" novalidate>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" name="id" id="id_depts" aria-describedby="inputGroupPrepend">
+
+                                        <label for="validationCustomUsername" class="form-label">Nama Departmant</label>
+                                        <div class="input-group has-validation">
+                                                <input type="text" class="form-control" name="username" id="validationCustomUsername2" aria-describedby="inputGroupPrepend" required>
+                                            <div class="invalid-feedback">
+                                                Please input department name.
+                                            </div>
+                                            <button onclick="reset()" class="btn btn-secondary ml-2 p-1">
+                                                <i class="fas fa-sync-alt"></i>
+                                            </button>
+                                        </div>
+                                            <button type="submit" class="btn btn-warning mt-3">Submit</button>
+<!--                                            <button type="button" class="btn btn-secondary mt-3" data-dismiss="modal">Close</button>-->
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!--                End Modal Content-->
+
+
+
+                <!-- Target modal/input form -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p style="color: red" id="pesan"></p>
+                                <form class="needs-validation" id="postForm" novalidate>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" name="id" id="id_dept" aria-describedby="inputGroupPrepend">
+
+                                        <label for="validationCustomUsername" class="form-label">Nama Departmant</label>
+                                        <div class="input-group has-validation">
+                                            <input type="text" class="form-control" name="username" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                                            <div class="invalid-feedback">
+                                                Please input department name.
+                                            </div>
+                                            <button onclick="reset()" class="btn btn-secondary ml-2 p-1">
+                                                <i class="fas fa-sync-alt"></i>
+                                            </button>
+                                        </div>
+                                        <button type="submit" class="btn btn-warning mt-3" id="submitForm">Submit</button>
+                                        <!--                                            <button type="button" class="btn btn-secondary mt-3" data-dismiss="modal">Close</button>-->
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--                End Modal Content-->
                 <div class="row">
-                    <table class="table table-striped">
-                        <thead class="thead-light">
-                        <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                        </thead>
-                        <tr th:each="department : ${department.data}">
-                            <td   th:text="${department.id}"></td>
-                            <td th:text="${department.name}"></td>
-                            <td>
-                                <a th:href="@{/department/formUpdate(departmentId=${department.id})}" class="btn btn-warning p-2">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <a th:href="@{/department/delete/{id}(id=${department.id})}" class="btn btn-danger p-2"
-                                   onclick="if(!(confirm('Apakah Data Berikut akan Dihapus?'))) return false">
-                                    <i class="far fa-trash-alt"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    </table>
+                    <div class="table">
+                        <table class="display" id="tablekita">
+                            <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+<!--                            <tr th:each="department : ${department.data}">-->
+<!--                                <td   th:text="${department.id}"></td>-->
+<!--                                <td th:text="${department.name}"></td>-->
+<!--                                <td>-->
+<!--                                    <a th:href="@{/department/formUpdate(departmentId=${department.id})}" class="btn btn-warning p-2 mr-2">-->
+<!--                                        <i class="fas fa-edit"></i>-->
+<!--                                    </a>-->
+<!--                                    <button onclick="ajaxDel('+department.id+')" href="javascript:void(0);">-->
+<!--                                            <i class="far fa-trash-alt"></i>-->
+<!--                                    </button>-->
+
+
+<!--&lt;!&ndash;                                    <a th:href="@{/department/delete/{id}(id=${department.id})}" class="btn btn-danger p-2">&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <i class="far fa-trash-alt"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </a>&ndash;&gt;-->
+<!--                                </td>-->
+<!--                            </tr>-->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <div th:replace="item/footer :: footers"></div>
-            <tr th:include="item/footer :: coba">
-                <td id="cob">xxxxxxx</td>
-                <td id="angka">xxx</td>
-                <td>xx</td>
-                <td>xx</td>
-            </tr>
+<!--            <tr th:include="item/footer :: coba">-->
+<!--                <td id="cob">xxxxxxx</td>-->
+<!--                <td id="angka">xxx</td>-->
+<!--                <td>xx</td>-->
+<!--                <td>xx</td>-->
+<!--            </tr>-->
         </div>
     </div>
+
 </body>
+        <div th:replace="item/footer :: jav_script">
+        </div>
 </html>

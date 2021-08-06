@@ -50,5 +50,17 @@ public class DepartmentService {
         return "deleted";
     }
 
+    public Department del_ajax(Long id) {
+        restTemplate.delete(apiUrl +"/"+ id, Department.class);
+        return null;
+    }
+    public ResponseMessage<Department> getAll_Ajax() {
+        ResponseEntity<ResponseMessage<Department>> res = restTemplate
+                .exchange(apiUrl, HttpMethod.GET, null,
+                        new ParameterizedTypeReference<ResponseMessage<Department>>(){});
+
+        return res.getBody();
+    }
+
 
 }
